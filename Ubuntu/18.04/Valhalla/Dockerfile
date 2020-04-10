@@ -51,6 +51,9 @@ RUN /bin/bash build_prime_server.sh
 # Build Valhalla
 RUN /bin/bash build_valhalla.sh
 
+# Copy custom graph.lua file
+COPY graph.lua /foo/valhalla/lua/graph.lua
+
 # Set link to osm file
 ARG tile_url
 ARG tile_file
@@ -73,14 +76,13 @@ COPY run.sh ${SCRIPTS_DIR}
 # Copy the tile file if it exists
 COPY blank ${tile_file}* ${SCRIPTS_DIR}
 
-
 # configure Valhalla
 WORKDIR /${SCRIPTS_DIR}
 RUN /bin/bash configure_valhalla.sh ${SCRIPTS_DIR} ${CONFIG_PATH} ${tile_url} ${tile_file} ${min_x} ${max_x} ${min_y} ${max_y}
 
 # Cleaning process
 WORKDIR /
-RUN rm -rf /foo
+#RUN rm -rf /foo
 RUN apt-get autoclean -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Expose and run Valhalla

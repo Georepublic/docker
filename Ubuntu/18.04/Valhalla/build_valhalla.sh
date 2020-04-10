@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-url="https://github.com/valhalla/valhalla"
+url="https://github.com/georepublic/valhalla"
 NPROC=$(nproc)
 
 

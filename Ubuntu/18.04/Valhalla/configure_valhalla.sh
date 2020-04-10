@@ -26,11 +26,11 @@ if [[ "$5" != 0 ]] && [[ "$6" != 0 ]] && [[ "$7" != 0 ]] && [[ "$8" != 0 ]]; the
     # Build the elevation data
     valhalla_build_elevation $5 $6 $7 $8 ${PWD}/elevation_tiles;
     # Build the config file with elevation
-    valhalla_build_config --service-limits-auto-max-matrix-locations 500 --mjolnir-tile-dir ${PWD}/valhalla_tiles --mjolnir-tile-extract ${PWD}/valhalla_tiles.tar --mjolnir-timezone ${PWD}/valhalla_tiles/timezones.sqlite --mjolnir-admin ${PWD}/valhalla_tiles/admins.sqlite --additional-data-elevation ${PWD}/elevation_tiles > $2;
+    valhalla_build_config --service-limits-auto-max-matrix-locations 1500 --service-limits-auto-max-matrix-distance 500000.0 --mjolnir-tile-dir ${PWD}/valhalla_tiles --mjolnir-tile-extract ${PWD}/valhalla_tiles.tar --mjolnir-timezone ${PWD}/valhalla_tiles/timezones.sqlite --mjolnir-admin ${PWD}/valhalla_tiles/admins.sqlite --additional-data-elevation ${PWD}/elevation_tiles > $2;
 else 
     echo "No valid bounding box set. Skipping elevation!";
     # Build the config file without elevation
-    valhalla_build_config --service-limits-auto-max-matrix-locations 500 --mjolnir-tile-dir ${PWD}/valhalla_tiles --mjolnir-tile-extract ${PWD}/valhalla_tiles.tar --mjolnir-timezone ${PWD}/valhalla_tiles/timezones.sqlite --mjolnir-admin ${PWD}/valhalla_tiles/admins.sqlite > $2;
+    valhalla_build_config --service-limits-auto-max-matrix-locations 1500 --service-limits-auto-max-matrix-distance 500000.0 --mjolnir-tile-dir ${PWD}/valhalla_tiles --mjolnir-tile-extract ${PWD}/valhalla_tiles.tar --mjolnir-timezone ${PWD}/valhalla_tiles/timezones.sqlite --mjolnir-admin ${PWD}/valhalla_tiles/admins.sqlite > $2;
 fi
 # Build the admin regions
 valhalla_build_admins --config $2 $tile_file
